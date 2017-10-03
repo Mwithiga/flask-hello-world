@@ -6,6 +6,9 @@ from flask import Flask
 
 app = Flask(__name__)
 
+# error handling
+app.config["DEBUG"] = True
+
 #use the decorator pattern to link the view function to a url
 @app.route("/")
 @app.route("/route")
@@ -13,7 +16,7 @@ app = Flask(__name__)
 # define the view using a function, which retursn a string
 
 def hello_world():
-	return "Hell, World!"
+	return "Hello, World!, From this side"
 
 @app.route("/test/<search_query>")
 def search(search_query):
@@ -32,6 +35,13 @@ def float_type(value):
 def path_type(value):
 	print(value)
 	return "correct"
+
+@app.route("/name/<name>")
+def index(name):
+	if name.lower() == "michael" :
+		return "Hello, {}".format(name), 200
+	else :
+		return "Not Found", 404
 
 #start the dvelopment server using the run() method
 if __name__ =="__main__":
